@@ -1,29 +1,28 @@
-<p id="notice"><%= notice %></p>
+<div class="pull-right">
+  <%= link_to 'New Blog Post', new_blog_post_path, class: 'btn btn-info' %>
+</div>
 
-<h1>Listing Blog Posts</h1>
+<h1>Blog Posts</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Post title</th>
-      <th>Entry</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="row">
+  <% @blog_posts.each do |blog_post| %>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3><%= blog_post.post_title %></h3>
+        </div>
 
-  <tbody>
-    <% @blog_posts.each do |blog_post| %>
-      <tr>
-        <td><%= blog_post.post_title %></td>
-        <td><%= blog_post.entry %></td>
-        <td><%= link_to 'Show', blog_post %></td>
-        <td><%= link_to 'Edit', edit_blog_post_path(blog_post) %></td>
-        <td><%= link_to 'Destroy', blog_post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <div class="panel-body">
+          <p>by <%= blog_post.user.email %></p>
+          <p><small><em><%= time_ago_in_words(blog_post.created_at) %> ago</em></small></p>
 
-<br>
+          <p><%= blog_post.entry %></p>
+        </div>
 
-<%= link_to 'New Blog post', new_blog_post_path %>
+        <div class="panel-footer">
+          <%= link_to 'Edit', edit_blog_post_path(blog_post) %> | <%= link_to 'Delete', blog_post, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
